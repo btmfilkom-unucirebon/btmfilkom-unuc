@@ -9,7 +9,7 @@
     <title>Layanan - BTM FILKOM UNU CIREBON</title>
   </head>
 
-  <body>
+  <body class="overflow-hidden">
     <!-- NAVBAR -->
     <nav
       class="bg-nav fixed top-0 left-0 w-full z-50 h-20 md:h-24 shadow-lg transition-all duration-300"
@@ -103,6 +103,43 @@
       </div>
     </nav>
     <!-- END NAVBAR -->
+
+    <section
+      id="maintenance-screen"
+      class="fixed inset-0 z-[9999] hidden flex-col items-center justify-center bg-nav text-white text-center px-4"
+    >
+      <h1
+        class="text-7xl md:text-9xl font-black tracking-tighter mb-4 animate-pulse"
+      >
+        COMING <span class="text-acsent">SOON</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-400 max-w-md">
+        Mohon maaf, halaman Layanan BTM FILKOM sedang dalam tahap pengembangan
+        untuk pengalaman yang lebih baik.
+      </p>
+      <a
+        href="../index.html"
+        class="mt-10 inline-flex items-center gap-2 px-8 py-4 bg-acsent text-white rounded-2xl font-bold shadow-lg shadow-acsent/20 hover:bg-white hover:text-nav transition-all duration-300 transform hover:scale-105 group"
+      >
+        <svg
+          class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+
+        Kembali ke Beranda
+      </a>
+    </section>
+
+    <div id="main-content"></div>
 
     <!-- SECTION  -->
     <section class="py-30 bg-white">

@@ -59,16 +59,16 @@ function toggleMobileMenu(isOpen) {
     menuList.classList.remove(
       "opacity-0",
       "pointer-events-none",
-      "-translate-y-10"
+      "-translate-y-10",
     );
-    if(menuIcon) menuIcon.setAttribute("d", "M6 18L18 6M6 6l12 12");
+    if (menuIcon) menuIcon.setAttribute("d", "M6 18L18 6M6 6l12 12");
   } else {
     menuList.classList.add(
       "opacity-0",
       "pointer-events-none",
-      "-translate-y-10"
+      "-translate-y-10",
     );
-    if(menuIcon) menuIcon.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+    if (menuIcon) menuIcon.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
   }
 }
 
@@ -90,7 +90,8 @@ navLinks.forEach((link) => {
       e.preventDefault();
       const targetElement = document.querySelector(targetHref);
       if (targetElement) {
-        const offsetPosition = targetElement.offsetTop - (navbar ? navbar.offsetHeight : 0);
+        const offsetPosition =
+          targetElement.offsetTop - (navbar ? navbar.offsetHeight : 0);
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         window.history.replaceState(null, null, window.location.pathname);
         updateActiveLink(targetHref);
@@ -109,7 +110,8 @@ window.addEventListener("scroll", () => {
   if (isIndex) {
     let currentSection = "";
     const sections = document.querySelectorAll("section");
-    const scrollPosition = window.pageYOffset + (navbar ? navbar.offsetHeight : 0) + 100;
+    const scrollPosition =
+      window.pageYOffset + (navbar ? navbar.offsetHeight : 0) + 100;
 
     sections.forEach((section) => {
       if (scrollPosition >= section.offsetTop) {
@@ -135,7 +137,11 @@ if (heroContainer) {
 }
 
 document.addEventListener("click", function (e) {
-  if (window.innerWidth < 768 && heroContainer && !heroContainer.contains(e.target)) {
+  if (
+    window.innerWidth < 768 &&
+    heroContainer &&
+    !heroContainer.contains(e.target)
+  ) {
     heroContainer.classList.remove("active-mobile");
   }
 });
@@ -160,17 +166,17 @@ let autoSlideInterval;
 
 function startAutoSlide(slider) {
   // Clear interval lama jika ada untuk mencegah tumpuk
-  if(autoSlideInterval) clearInterval(autoSlideInterval);
+  if (autoSlideInterval) clearInterval(autoSlideInterval);
 
   autoSlideInterval = setInterval(() => {
     // Pastikan slider ada di DOM sebelum mengakses propertinya
     if (!document.contains(slider)) {
-        clearInterval(autoSlideInterval);
-        return;
+      clearInterval(autoSlideInterval);
+      return;
     }
 
     const firstItem = slider.querySelector(".flex-none");
-    if(!firstItem) return;
+    if (!firstItem) return;
 
     slider.scrollTo({
       left: slider.clientWidth,
@@ -187,7 +193,7 @@ function startAutoSlide(slider) {
 }
 
 // Kita pasang ke window agar bisa dipanggil via onclick di HTML (PENTING untuk modul)
-window.toggleDept = function(card) {
+window.toggleDept = function (card) {
   const content = card.querySelector(".detail-content");
   const allCards = document.querySelectorAll(".dept-card");
   const slider = card.querySelector(".member-slider");
@@ -199,13 +205,13 @@ window.toggleDept = function(card) {
   allCards.forEach((c) => {
     c.classList.remove("active", "shadow-xl", "-translate-y-2");
     const cContent = c.querySelector(".detail-content");
-    if(cContent) cContent.style.maxHeight = null;
+    if (cContent) cContent.style.maxHeight = null;
   });
 
   // Jika card yang diklik belum aktif, aktifkan
   if (!isActive) {
     card.classList.add("active", "shadow-xl", "-translate-y-2");
-    if(content) content.style.maxHeight = content.scrollHeight + "px";
+    if (content) content.style.maxHeight = content.scrollHeight + "px";
 
     setTimeout(() => {
       const elementPosition =
@@ -232,7 +238,7 @@ export function showToast(message = "Berhasil!") {
   if (!toast) return;
 
   // Bisa custom message jika elemen text ada
-  // toast.innerText = message; 
+  // toast.innerText = message;
 
   toast.classList.remove("opacity-0", "pointer-events-none", "scale-95");
   toast.classList.add("opacity-100", "scale-100");
@@ -243,7 +249,7 @@ export function showToast(message = "Berhasil!") {
   }, 2000);
 }
 // Pasang ke window juga untuk backup jika dipanggil non-module
-window.showToast = showToast; 
+window.showToast = showToast;
 
 // --- 6. INITIALIZATION ON LOAD ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -288,3 +294,24 @@ document.addEventListener("DOMContentLoaded", () => {
     yearElement.innerText = `© ${currentYear}`;
   }
 });
+
+// --- MAINTENANCE MODE LOGIC ---
+const isMaintenance = true; // Ubah ke false untuk mematikan
+
+// Ambil elemennya
+const maintenanceScreen = document.getElementById("maintenance-screen");
+const mainContent = document.getElementById("main-content");
+
+if (isMaintenance) {
+  maintenanceScreen.classList.remove("hidden");
+  maintenanceScreen.classList.add("flex");
+
+  if (mainContent) mainContent.classList.add("hidden");
+
+  document.body.classList.add("overflow-hidden");
+} else {
+  maintenanceScreen.classList.add("hidden");
+  maintenanceScreen.classList.remove("flex");
+  if (mainContent) mainContent.classList.remove("hidden");
+  document.body.classList.remove("overflow-hidden");
+}
