@@ -295,23 +295,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// --- MAINTENANCE MODE LOGIC ---
-const isMaintenance = true; // Ubah ke false untuk mematikan
+// --- LOGIKA MAINTENANCE KHUSUS ---
+const isMaintenance = true; // UBAH KE FALSE JIKA SUDAH SIAP LAUNCHING
 
-// Ambil elemennya
 const maintenanceScreen = document.getElementById("maintenance-screen");
 const mainContent = document.getElementById("main-content");
 
-if (isMaintenance) {
-  maintenanceScreen.classList.remove("hidden");
-  maintenanceScreen.classList.add("flex");
-
-  if (mainContent) mainContent.classList.add("hidden");
-
-  document.body.classList.add("overflow-hidden");
-} else {
-  maintenanceScreen.classList.add("hidden");
-  maintenanceScreen.classList.remove("flex");
-  if (mainContent) mainContent.classList.remove("hidden");
-  document.body.classList.remove("overflow-hidden");
+// Script ini cuma jalan kalau elemennya ada (berarti sedang di halaman Layanan)
+if (maintenanceScreen && mainContent) {
+  if (isMaintenance) {
+    // Mode Coming Soon Aktif
+    maintenanceScreen.classList.replace("hidden", "flex");
+    mainContent.classList.add("hidden");
+    document.body.style.overflow = "hidden"; // Kunci scroll
+  } else {
+    // Mode Normal Aktif
+    maintenanceScreen.classList.replace("flex", "hidden");
+    mainContent.classList.remove("hidden");
+    document.body.style.overflow = "auto"; // Aktifkan scroll
+  }
 }
